@@ -20,8 +20,11 @@ LiquidCrystal_I2C lcd(0x27, 16 ,2);
 
 Servo ESC;     // create servo object to control the ESC
 
-int potValue;  // value from the analog pin
+int potValue;  // value from the analog pinsj
 int pwmPin = 9;
+int value;
+
+
 
 int read_angle(int potValue){
   // Use Potentiometer to measure motor shaft angle
@@ -49,62 +52,67 @@ void loop() {
   lcd.setCursor(1,0);
   lcd.print(potValue);
   lcd.clear();
-  for(int value = 0; value<= 1023; value++){
+  int increment = 100;
+    
+    do{
     ESC.write(value);
+    value+=increment;
     int duty_cycle = get_duty_cycle(value);
     int angle;
     if(duty_cycle == 20){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     }else if(duty_cycle == 40){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     } else if(duty_cycle == 50){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     } else if(duty_cycle == 60){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     } else if(duty_cycle == 70){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     } else if(duty_cycle == 80){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     } else if(duty_cycle == 90){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     } else if(duty_cycle == 100){
         angle = read_angle(value);
         lcd.setCursor(0,0);
         lcd.print(angle);
-        delay(500);
+        delay(5000);
         lcd.clear();
     } else {
       Serial.println("Invalid Duty Cycle");
     }
-   
   }
+  while(value<=1023);
+  
+  
   
 }
