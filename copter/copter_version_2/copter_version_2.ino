@@ -5,7 +5,10 @@ LiquidCrystal_I2C lcd(0x27, 16 ,2);
 #define MAX_ANGLE 90
 #define MIN_ANALOG_VALUE 0
 #define MAX_ANALOG_VALUE 262
-int pwmPin = 5;
+
+#define samp_size 4
+//int reads{samp_size];
+//int pwmPin = 5;
 int potValue;
 int angle;
 
@@ -94,21 +97,18 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  for(int min_duty=0;min_duty<=100;min_duty+=10){
-    int val = map(min_duty, 0, 100, 0, 255);
+ for(int min_duty=16;min_duty<=100;min_duty+=5){
+    int val = map(min_duty, 0, 110, 0, 799);
     analogWriteSAH(val);
     lcd.setCursor(0,0);
     lcd.print("Duty Cycle: ");
-    lcd.setCursor(1,0);
+    lcd.setCursor(12,0);
     lcd.print(min_duty);
-    delay(5000);
-    lcd.clear();
     potValue = analogRead(A0);
     angle = map(potValue, MIN_ANALOG_VALUE, MAX_ANALOG_VALUE, MIN_ANGLE, MAX_ANGLE);
-    lcd.setCursor(0,0);
+    lcd.setCursor(0,1);
     lcd.print("Angle: ");
-    lcd.setCursor(1,0);
+    lcd.setCursor(7,1);
     lcd.print(angle);
     delay(5000);
     lcd.clear(); 
