@@ -6,15 +6,11 @@ LiquidCrystal_I2C lcd(0x27, 16 ,2);
 #define MIN_ANALOG_VALUE 0
 #define MAX_ANALOG_VALUE 262
 
-#define samp_size 4
-//int reads{samp_size];
-//int pwmPin = 5;
 int potValue;
 int angle;
 
 void analogWriteSAH_Init( void )
 {
-  // Stop the timer while we muck with it
 
   TCCR1B = (0 << ICNC1) | (0 << ICES1) | (0 << WGM13) | (0 << WGM12) | (0 << CS12) | (0 << CS11) | (0 << CS10);
   
@@ -61,7 +57,6 @@ void analogWriteSAH_Init( void )
   
   OCR1A = 0;
   
-  // We don't need no stinkin interrupts
   
   TIMSK1 = (0 << ICIE1) | (0 << OCIE1B) | (0 << OCIE1A) | (0 << TOIE1);
 
@@ -89,7 +84,6 @@ void analogWriteSAH( uint16_t value )
 }
 
 void setup() {
-  // put your setup code here, to run once:
   analogWriteSAH_Init();
   lcd.init();
   lcd.backlight();
